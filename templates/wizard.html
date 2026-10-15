@@ -10,10 +10,124 @@
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
 
     <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 text-center">
-        <h1 class="text-xl font-bold tracking-wider text-cyan-400">DEV IN BITS <span class="text-xs text-slate-400 font-normal">Solar Sales Studio</span></h1>
-        
+        <h1 class="text-xl font-bold tracking-wider text-cyan-400">DEV IN BITS <span class="text-xs text-slate-400 font-normal">Solar Quotation Studio</span></h1>
 
     </header>
+
+    <main class="max-w-md mx-auto w-full p-4 my-6 bg-slate-800 rounded-xl shadow-2xl border border-slate-700">
+      <div class="flex justify-between mb-6 text-xs text-slate-400 font-semibold border-b border-slate-700 pb-3">
+        <span id="indicator-1" class="text-cyan-400">1. Customer</span>
+        <span id="indicator-2">2. System</span>
+        <span id="indicator-3">3. Hardware</span>
+        <span id="indicator-4">4. Summary</span>
+      </div>
+
+      <form id="quotationForm">
+        <div id="step-1" class="wizard-step space-y-4">
+            <h2 class="text-lg font-bold text-white mb-2">Step 1: Customer Details</h2>
+            <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Customer Full Name</label>
+                    <input type="text" id="customer_name" required placeholder="e.g. Chaudhry Ahmed" 
+                           class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">WhatsApp Phone Number</label>
+                    <input type="tel" id="customer_phone" required placeholder="e.g. 03001234567" 
+                           class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">City / Location</label>
+                    <input type="text" id="city" placeholder="e.g. Gujranwala" 
+                           class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Connection Phase</label>
+                    <select id="connection_type" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="Three-Phase">Three-Phase</option>
+                        <option value="Single-Phase">Single-Phase</option>
+                    </select>
+                </div>
+        </div>
+        <div id="step-2" class="wizard-step space-y-4 hidden">
+                <h2 class="text-lg font-bold text-white mb-2">Step 2: System Selection</h2>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">System Capacity (kW)</label>
+                    <select id="system_kw" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="3">3 kW</option>
+                        <option value="5">5 kW</option>
+                        <option value="10" selected>10 kW</option>
+                        <option value="15">15 kW</option>
+                        <option value="20">20 kW</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">System Type</label>
+                    <select id="system_type" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="Hybrid">Hybrid (With Batteries)</option>
+                        <option value="On-Grid">On-Grid (No Batteries)</option>
+                        <option value="Off-Grid">Off-Grid</option>
+                    </select>
+                </div>
+            </div>
+        <div id="step-3" class="wizard-step space-y-4 hidden">
+                <h2 class="text-lg font-bold text-white mb-2">Step 3: Hardware & Toggles</h2>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Panel Brand & Wattage</label>
+                    <select id="panel_brand" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="Longi 585W">Longi 585W (Tier-1)</option>
+                        <option value="Jinko 615W">Jinko 615W (Tiger Neo)</option>
+                        <option value="Canadian 575W">Canadian Solar 575W</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Structure Type</label>
+                    <select id="structure_type" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                        <option value="Standard L3">Standard L3 Roof Mount</option>
+                        <option value="Custom Elevated">Custom Elevated Structure (+Rs. 50k)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Extra DC Cable (Meters over 30m)</label>
+                    <input type="number" id="extra_cable_m" value="0" min="0" 
+                           class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+            </div>
+        <!-- STEP 4: Summary & Generate -->
+            <div id="step-4" class="wizard-step space-y-4 hidden">
+                <h2 class="text-lg font-bold text-white mb-2">Step 4: Summary & Quote</h2>
+                
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 space-y-2 text-sm">
+                    <div class="flex justify-between"><span class="text-slate-400">Client:</span> <span id="summary-name" class="font-semibold">-</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">System Size:</span> <span id="summary-size" class="font-semibold">-</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Est. Generation:</span> <span id="summary-generation" class="font-semibold text-emerald-400">-</span></div>
+                    <hr class="border-slate-700 my-2">
+                    <div class="flex justify-between text-base font-bold"><span class="text-slate-200">Grand Total:</span> <span id="summary-total" class="text-cyan-400">Rs. 0</span></div>
+                </div>
+
+                <div class="bg-slate-900/50 p-3 rounded-lg text-xs text-slate-400">
+                    <p class="font-semibold text-slate-300 mb-1">Payment Terms:</p>
+                    <p>50% Advance | 40% on Delivery | 10% After Net-Metering Handover</p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between mt-6 pt-4 border-t border-slate-700">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-medium transition hidden">Back</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-sm font-medium transition ml-auto">Next</button>
+            </div>
+      </form>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-slate-500">
+    Powered by Dev In Bits &copy; 2026
+    </footer>
     
 </body>
 </html>
