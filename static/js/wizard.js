@@ -17,6 +17,21 @@ function showTab(n) {
     updateIndicators(n);
     
     }
+
+function nextPrev(n) {
+     let x = document.getElementsByClassName("wizard-step");
+     if (n == 1 && !validateForm()) return;
+     x[currentTab].style.display = "none";
+     currentTab += n;
+
+     if (currentTab >= x.length) {
+        submitQuotation();
+        return;
+    }
+    showTab(currentTab);
+
+}
+
 function updateIndicators(n){
     for (let i = 1; i <= 4; i++) {
         let indicator = document.getElementById(`indicator-${i}`);
@@ -26,4 +41,8 @@ function updateIndicators(n){
             indicator.classList.remove("text-cyan-400", "font-bold");
         }
     }
+}
+
+async function calculateSummary(){
+
 }
